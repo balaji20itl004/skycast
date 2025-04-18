@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <h2>weather Check</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="enter the city" name="city">
+        <input type="submit"> 
+    </form>
+    <div class="details">
+        {% if res %}
+        {% if res.error %}
+            <p>{{ res.error }}</p>
+        {% else %}
+            {% if res.name %}
+                <p>name: {{ res.name }}</p>
+            {% endif %}
+    
+            {% if res.main %}
+                <p>Temperature: {{ res.main.temp }}</p>
+                <p>Feels_like: {{ res.main.feels_like }}</p>
+                <p>Temp_Min: {{ res.main.temp_min }}</p>
+                <p>Temp_Max: {{ res.main.temp_max }}</p>
+                <p>Pressure: {{ res.main.pressure }}</p>
+                <p>Humidity: {{ res.main.humidity }}</p>
+            {% endif %}
+
+            {% if res.sys %}
+            <p>country: {{ res.sys.country }}</p>
+            {% endif %}
+            
+            {% if res.weather %}
+                <p>description: {{ res.weather.0.description }}</p>
+                <img src="http://openweathermap.org/img/w/{{ res.weather.0.icon }}.png" alt="icon">
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    
+    </div>
+    
+    
+
+
+</body>
+</html>
